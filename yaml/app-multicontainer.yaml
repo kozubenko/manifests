@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-multicontainer-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: example-multicontainer-app
+  template:
+    metadata:
+      labels:
+        app: example-multicontainer-app
+    spec:
+      containers:
+        - name: example-container-1
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+        - name: example-container-2
+          image: busybox:latest
+          args:
+            - /bin/sh
+            - -c
+            - while true; do echo "Container 2 running"; sleep 10; done
